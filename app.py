@@ -13,7 +13,7 @@ model = None
 
 def load_model():
     global model
-    model = ResNet50(weights="imagenet")
+    model = ResNet50(weights="resnet50.h5")
 
 
 def prepare_image(image, target):
