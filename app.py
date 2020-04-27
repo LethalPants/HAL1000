@@ -8,12 +8,8 @@ from tensorflow.keras.applications import imagenet_utils
 from tensorflow.keras.preprocessing.image import img_to_array
 
 app = Flask(__name__)
-model = None
+model = ResNet50(weights="resnet50.h5")
 
-
-def load_model():
-    global model
-    model = ResNet50(weights="resnet50.h5")
 
 
 def prepare_image(image, target):
@@ -29,19 +25,19 @@ def prepare_image(image, target):
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html')
+    if model is not None:
+        return render_template('index.html')
 
 
 @app.route("/predict", methods=["POST"])
 def predict():
     # initialize the data dictionary that will be returned from the view
     data = {"success": False}
-    if request.method == "POST":
+    if request.method == "POST" and model is not None:
         if request.files["image"]:
             image = request.files["image"].read()
             image = Image.open(io.BytesIO(image))
             image = prepare_image(image, target=(224, 224))
-            print(image)
             prediction = model.predict(image)
             results = imagenet_utils.decode_predictions(prediction)
             data["predictions"] = []
@@ -55,6 +51,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    load_model()
-    if model is not None:
-        app.run()
+    app.run()
