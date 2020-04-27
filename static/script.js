@@ -1,6 +1,7 @@
 let errorContainer = document.getElementById('error-container');
 let output = document.getElementById('output');
 document.getElementById('image').addEventListener('change', (ev) => {
+    output.innerHTML = `<h3>Lemme think...</h3>`;
     let imageBox = document.getElementById('image-box');
     let image = ev.target.files[0];
     imageBox.innerHTML = `<img src=${URL.createObjectURL(
