@@ -39,8 +39,10 @@ def predict():
     if request.method == "POST":
         if request.files["image"]:
             image = request.files["image"].read()
+            print(request.file["imge"])
             image = Image.open(io.BytesIO(image))
             image = prepare_image(image, target=(224, 224))
+            print(image)
             prediction = model.predict(image)
             results = imagenet_utils.decode_predictions(prediction)
             data["predictions"] = []
