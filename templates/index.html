@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="error-container">
+</div>
+<div class="content-center">
+    <div>
+        <h1>
+            What is that?
+        </h1>
+        <p>Hello, I'm HAL. Upload a picture and my neural nets will tell you what it is</p>
+        <div class="image-box" id="image-box">
+
+        </div>
+        <form method="post" action="http://localhost:5000/predict" enctype="multipart/form-data">
+            <input type="file" name="image" id="image">
+        </form>
+        <div class="output" id="output">
+            <h3 style="height: 25px"></h3>
+        </div>
+    </div>
+</div>
+{% endblock content %}

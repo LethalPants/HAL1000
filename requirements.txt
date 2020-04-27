@@ -1,0 +1,5 @@
+tensorflow
+gunicorn
+Flask
+imageio
+Pillow
