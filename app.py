@@ -1,5 +1,6 @@
 import io
 import tensorflow as tf
+import numpy as np
 from PIL import Image
 from flask import Flask, render_template, request, jsonify
 from tensorflow.keras.applications import ResNet50
@@ -11,7 +12,6 @@ model = None
 
 
 def load_model():
-    # load the Resenet model pre-trained on the imagenet dataset
     global model
     model = ResNet50(weights="imagenet")
 
@@ -22,7 +22,7 @@ def prepare_image(image, target):
         image = image.convert("RGB")
     image = image.resize(target)
     image = img_to_array(image)
-    image = tf.expand_dims(image, axis=0)
+    image = np.expand_dims(image, axis=0)
     image = imagenet_utils.preprocess_input(image)
     return image
 
@@ -55,6 +55,6 @@ def predict():
 
 
 if __name__ == '__main__':
-    if model is None:
-        load_model()
-    app.run()
+    load_model()
+    if model is not None:
+        app.run()

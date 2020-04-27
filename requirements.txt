@@ -3,3 +3,4 @@ gunicorn
 Flask
 imageio
 Pillow
+numpy
