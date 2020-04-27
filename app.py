@@ -39,7 +39,7 @@ def predict():
     if request.method == "POST":
         if request.files["image"]:
             image = request.files["image"].read()
-            print(request.file["imge"])
+            print(request.files["imge"])
             image = Image.open(io.BytesIO(image))
             image = prepare_image(image, target=(224, 224))
             print(image)
